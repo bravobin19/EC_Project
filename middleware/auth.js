@@ -1,5 +1,7 @@
 const {User} = require('../config/db');
 const jwt = require('jsonwebtoken');
+require("dotenv").config();
+
 const isEmail = async (req,res,next)=>{
     try {
         let user = req.body.email;
@@ -77,7 +79,7 @@ let getUserById = function getUserById(id){
 let checkAuth = async (req,res,next)=>{
     try {
         var token = req.cookies.token || req.body.token 
-        let decodeAccount = jwt.verify(token,process.env.JWT_ACCESS_KEY)
+        let decodeAccount = jwt.verify(token,process.env.JWT_KEY)
         let user = await getUserById(decodeAccount.id)
         if(user){
             req.user = user;

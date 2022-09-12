@@ -6,7 +6,7 @@ const AnswerModel = require('../models/answer');
 const CategoriesModel = require('../models/categories');
 const QuestionModel = require('../models/question');
 
-const sequelize = new Sequelize('mock_1', process.env.NAME, process.env.PASSWORD, {
+const sequelize = new Sequelize('postgres', process.env.NAME, process.env.PASSWORD, {
     host: 'localhost',
     dialect: 'postgres'
 });
@@ -26,7 +26,7 @@ const Answer = AnswerModel(sequelize, Sequelize);
 const Categories = CategoriesModel(sequelize, Sequelize);
 const Question = QuestionModel(sequelize, Sequelize);
 
-User.hasMany(UserQuiz);
+User.hasMany(Answer);
 Categories.hasMany(Score);
 Categories.hasMany(Question);
 Score.hasMany(Answer);
