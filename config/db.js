@@ -1,9 +1,9 @@
 const { Sequelize } = require('sequelize');
 
 const UserModel = require('../models/user');
-const ScoreModel = require('../models/score');
-const AnswerModel = require('../models/answer');
-const CategoriesModel = require('../models/categories');
+const UserQuizModel = require('../models/user_quiz');
+const UserAnswerModel = require('../models/user_answer');
+const QuizModel = require('../models/quiz');
 const QuestionModel = require('../models/question');
 
 const sequelize = new Sequelize('postgres', process.env.NAME, process.env.PASSWORD, {
@@ -21,16 +21,16 @@ sequelize
     });
 
 const User = UserModel(sequelize, Sequelize);
-const Score = ScoreModel(sequelize, Sequelize);
-const Answer = AnswerModel(sequelize, Sequelize);
-const Categories = CategoriesModel(sequelize, Sequelize);
+const UserQuiz = UserQuizModel(sequelize, Sequelize);
+const UserAnswer = UserAnswerModel(sequelize, Sequelize);
+const Quiz = QuizModel(sequelize, Sequelize);
 const Question = QuestionModel(sequelize, Sequelize);
 
-User.hasMany(Answer);
-Categories.hasMany(Score);
-Categories.hasMany(Question);
-Score.hasMany(Answer);
-Question.hasMany(Answer);
+User.hasMany(UserQuiz);
+Quiz.hasMany(UserQuiz);
+Quiz.hasMany(Question);
+UserQuiz.hasMany(UserAnswer);
+Question.hasMany(UserAnswer);
 
 sequelize.sync().then(() => {
     console.log("Database and tables created");
@@ -39,9 +39,9 @@ sequelize.sync().then(() => {
 module.exports = {
     sequelize,
     User,
+    Quiz,
+    UserQuiz,
     Question,
-    Categories,
-    Score,
-    Answer,
+    UserAnswer,
 
 };

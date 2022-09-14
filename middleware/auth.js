@@ -1,8 +1,6 @@
-const {User} = require('../config/db');
-const jwt = require('jsonwebtoken');
-require("dotenv").config();
-
-const isEmail = async (req,res,next)=>{
+let {User} = require('../config/db');
+var jwt = require('jsonwebtoken');
+let isEmail = async (req,res,next)=>{
     try {
         let user = req.body.email;
         await User.findOne({
@@ -22,7 +20,7 @@ const isEmail = async (req,res,next)=>{
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            message : "error sever",
+            message : "loi sever",
             status: 500,
             error : true
         })
@@ -79,7 +77,7 @@ let getUserById = function getUserById(id){
 let checkAuth = async (req,res,next)=>{
     try {
         var token = req.cookies.token || req.body.token 
-        let decodeAccount = jwt.verify(token,process.env.JWT_KEY)
+        let decodeAccount = jwt.verify(token,process.env.JWT_ACCESS_KEY)
         let user = await getUserById(decodeAccount.id)
         if(user){
             req.user = user;
