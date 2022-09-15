@@ -1,8 +1,8 @@
 const { Sequelize } = require('sequelize');
 
 const UserModel = require('../models/user');
-const UserQuizModel = require('../models/user_quiz');
-const UserAnswerModel = require('../models/user_answer');
+const UserQuizModel = require('../models/score');
+const UserAnswerModel = require('../models/answer');
 const QuizModel = require('../models/quiz');
 const QuestionModel = require('../models/question');
 
